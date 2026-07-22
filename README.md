@@ -28,7 +28,7 @@ This project stores data **in memory only**. Whenever the server restarts, the d
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/22CS004/task-api.git
+ git clone https://github.com/sidrasami4/task-api.git
 cd task-api
 ```
 
@@ -150,4 +150,4 @@ HTTP/1.1 201 Created
 
 **Sidra Sami Khanzada**
 
-GitHub: https://github.com/22CS004
+GitHub: git clone https://github.com/sidrasami4
