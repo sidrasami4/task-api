@@ -1,36 +1,153 @@
-Task API — W2 · A1 (Python / FastAPI lane)
-A small CRUD API that manages a to-do list of tasks. Built for the FlyRank W2 A1assignment ("Build your first CRUD API"), Python lane.
+# Task API — W2 · A1 (Python / FastAPI)
 
-Data lives in memory only — restart the server and it resets to the 3 seedtasks. That's deliberate: Week 3 swaps this for a real database, and losingyour data on restart is the lesson that motivates it.
+A small CRUD API that manages a to-do list of tasks, built for the **FlyRank W2 A1 – "Build Your First CRUD API"** (Python/FastAPI lane).
 
-How to install & run
-You need Python 3.10+.
+This project stores data **in memory only**. Whenever the server restarts, the data resets to the three default seed tasks. This behavior is intentional and will be replaced with a database in the next assignment.
 
-# 1. (optional but recommended) create a virtual environmentpython -m venv .venvsource .venv/bin/activate          # Windows: .venv\Scripts\activate# 2. install the two dependenciespip install -r requirements.txt# 3. run the server  — one documented commanduvicorn main:app --reload
-Then open:
+---
 
-http://localhost:8000/ — API description (JSON)
-http://localhost:8000/health — {"status":"ok"}
-http://localhost:8000/tasks — the task list
-http://localhost:8000/docs — Swagger UI (interactive)
-Endpoints
-Method
-Path
-Purpose
-Success
-Errors
-GET	/	Describe the API	200	—
-GET	/health	Liveness probe	200	—
-GET	/tasks	List all tasks	200	—
-GET	/tasks/{id}	Get one task by id	200	404
-POST	/tasks	Create a new task (body: title)	201	400
-PUT	/tasks/{id}	Update title and/or done	200	400, 404
-DELETE	/tasks/{id}	Delete a task	204	404
+## Features
 
-Status codes used
-200 OK — successful read or update
-201 Created — POST /tasks succeeded
-204 No Content — DELETE /tasks/{id} succeeded
-400 Bad Request — missing/empty title on POST or PUT
-404 Not Found — no task with that id
-All errors return JSON: {"error": "..."}
+- CRUD operations for tasks
+- In-memory data storage
+- Automatic API documentation with Swagger UI
+- Request validation
+- JSON error responses
+- Health check endpoint
+
+---
+
+## Requirements
+
+- Python 3.10 or later
+
+---
+
+## Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/22CS004/task-api.git
+cd task-api
+```
+
+### 2. Create a virtual environment (recommended)
+
+**Windows**
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+**Linux/macOS**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run the application
+
+```bash
+uvicorn main:app --reload
+```
+
+---
+
+## API URLs
+
+After starting the server, open:
+
+| URL | Description |
+|------|-------------|
+| http://localhost:8000/ | API description |
+| http://localhost:8000/health | Health check |
+| http://localhost:8000/tasks | List all tasks |
+| http://localhost:8000/docs | Swagger UI |
+
+---
+
+# Swagger UI
+
+See **`docs/swagger-ui.pdf`**
+
+---
+
+# Endpoints
+
+| Method | Endpoint | Purpose | Success | Errors |
+|---------|----------|---------|---------|--------|
+| GET | `/` | API description | 200 | — |
+| GET | `/health` | Health check | 200 | — |
+| GET | `/tasks` | List all tasks | 200 | — |
+| GET | `/tasks/{id}` | Get task by ID | 200 | 404 |
+| POST | `/tasks` | Create a task | 201 | 400 |
+| PUT | `/tasks/{id}` | Update a task | 200 | 400, 404 |
+| DELETE | `/tasks/{id}` | Delete a task | 204 | 404 |
+
+---
+
+## Status Codes
+
+| Status Code | Meaning |
+|-------------|---------|
+| **200 OK** | Successful request |
+| **201 Created** | Task created successfully |
+| **204 No Content** | Task deleted successfully |
+| **400 Bad Request** | Invalid or missing request data |
+| **404 Not Found** | Requested task does not exist |
+
+All error responses are returned in JSON format:
+
+```json
+{
+  "error": "..."
+}
+```
+
+---
+
+## Example cURL
+
+Create a task:
+
+```bash
+curl -i -X POST http://localhost:8000/tasks ^
+-H "Content-Type: application/json" ^
+-d "{\"title\":\"Complete FlyRank Assignment\"}"
+```
+
+Example response:
+
+```http
+HTTP/1.1 201 Created
+
+{
+  "id": 4,
+  "title": "Complete FlyRank Assignment",
+  "done": false
+}
+```
+
+---
+
+## Tech Stack
+
+- Python
+- FastAPI
+- Pydantic
+- Uvicorn
+
+
+
+**Sidra Sami Khanzada**
+
+GitHub: https://github.com/22CS004
